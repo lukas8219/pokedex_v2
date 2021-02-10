@@ -7,11 +7,15 @@ import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfigurat
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
-@SpringBootApplication(exclude = {
+
+/*
+ * (exclude = {
 		  MongoAutoConfiguration.class, 
 		  MongoDataAutoConfiguration.class
 		})
+ */
 
+@SpringBootApplication
 @EnableEurekaClient
 public class PokemonDataServiceApplication {
 
