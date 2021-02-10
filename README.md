@@ -2,15 +2,15 @@
  
 PokeDex WebApp designed with Microservices architecture.
 
-#MicroServices
+## MicroServices
 
-PokemonData Service
-PokemonList Service
-EvolutionChain Service
-Discovery Server(Eureka Server)
-Client Service.
+1. PokemonData Service
+2.  PokemonList Service
+3. EvolutionChain Service
+4. Discovery Server(Eureka Server)
+5. Client Service.
 
-#PokemonData Service
+### PokemonData Service
 
 **INPUT**
 Pokemon ID.
@@ -27,4 +27,4 @@ JSON with
 * Height (Int)
 * Abilities (ArrayList of String)
 
-#EvolutionChain Service
+### EvolutionChain Service
