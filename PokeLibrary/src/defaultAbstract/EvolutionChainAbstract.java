@@ -1,17 +1,16 @@
 package defaultAbstract;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import interfaces.EvolutionChainInterface;
-import interfaces.PokemonInterface;
 
 public class EvolutionChainAbstract implements EvolutionChainInterface {
 
-	private ArrayList<PokemonInterface> evolutions;
+	private List<String> evolutions;
 	private String id;
 	
 	@Override
-	public ArrayList<PokemonInterface> getEvolutions() {
+	public List<String> getEvolutions() {
 		return this.evolutions;
 	}
 
@@ -21,7 +20,7 @@ public class EvolutionChainAbstract implements EvolutionChainInterface {
 	}
 
 	@Override
-	public void setEvolutions(ArrayList<PokemonInterface> pokemonList) {
+	public void setEvolutions(List<String> pokemonList) {
 		this.evolutions = pokemonList;
 		
 	}

@@ -1,6 +1,6 @@
 package interfaces;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface EvolutionChainInterface {
 
@@ -8,12 +8,12 @@ public interface EvolutionChainInterface {
 	 * Return a ArrayList of Pokemons withing that Evolution Chain
 	 * @return the List of PokemonInterface
 	 */
-	public ArrayList<PokemonInterface> getEvolutions();
+	public List<String> getEvolutions();
 	/**
 	 * Sets the Pokemons in the Evolution Chain
 	 * @param pokemonList is a ArrayList of PokemonInterface
 	 */
-	public void setEvolutions(ArrayList<PokemonInterface> pokemonList);
+	public void setEvolutions(List<String> pokemonList);
 	
 	/**
 	 * 

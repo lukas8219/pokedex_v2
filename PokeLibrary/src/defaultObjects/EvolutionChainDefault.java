@@ -10,7 +10,7 @@ public class EvolutionChainDefault extends EvolutionChainAbstract {
 	public EvolutionChainDefault() {
 	}
 	
-	public EvolutionChainDefault(String id, ArrayList<PokemonInterface> pokemonList) {
+	public EvolutionChainDefault(String id, ArrayList<String> pokemonList) {
 		setEvolutions(pokemonList);
 		setId(id);
 	}

@@ -45,7 +45,7 @@ public class ListController {
 		
 		pokedex.setPokemonList(pokeList);
 		pokedex.setSize(size);
-		
+
 		return pokedex;
 	}
 	
