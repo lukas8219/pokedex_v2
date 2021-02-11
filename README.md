@@ -7,7 +7,7 @@ PokeDex WebApp designed with Microservices architecture.
 1. PokemonData Service :heavy_check_mark:
 2.  PokemonList Service :heavy_check_mark:
 3. EvolutionChain Service
-4. Discovery Server(Eureka Server)
+4. Discovery Server(Eureka Server) :heavy_check_mark:
 5. Client Service.
 
 ### PokemonData Service
