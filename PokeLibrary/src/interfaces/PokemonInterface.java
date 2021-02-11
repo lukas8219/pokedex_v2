@@ -98,11 +98,11 @@ public interface PokemonInterface {
 	 * 
 	 * @return a List containing all evolutions from the Pokemon
 	 */
-	public ArrayList<PokemonInterface> getEvolutions();
+	public EvolutionChainInterface getEvolutions();
 	
 	/**
 	 * Sets the evolution list.
 	 * @param AllPokemons
 	 */
-	public void setEvolutions(ArrayList<PokemonInterface> AllPokemons);
+	public void setEvolutions(EvolutionChainInterface AllPokemons);
 }

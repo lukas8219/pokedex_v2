@@ -1,16 +1,15 @@
 package defaultObjects;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import defaultAbstract.EvolutionChainAbstract;
-import interfaces.PokemonInterface;
 
 public class EvolutionChainDefault extends EvolutionChainAbstract {
 
 	public EvolutionChainDefault() {
 	}
 	
-	public EvolutionChainDefault(String id, ArrayList<String> pokemonList) {
+	public EvolutionChainDefault(String id, List<String> pokemonList) {
 		setEvolutions(pokemonList);
 		setId(id);
 	}

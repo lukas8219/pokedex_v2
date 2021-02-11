@@ -3,6 +3,8 @@ package defaultAbstract;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import defaultObjects.EvolutionChainDefault;
+import interfaces.EvolutionChainInterface;
 import interfaces.PokemonInterface;
 
 /**
@@ -19,7 +21,7 @@ public abstract class PokemonAbstract implements PokemonInterface{
 	private int height;
 	private int weight;
 	private ArrayList<String> abilities;
-	private ArrayList<PokemonInterface> evolutions;
+	private EvolutionChainInterface evolutions;
 	private HashMap<String, Integer> baseStatus;
 	
 	@Override
@@ -93,12 +95,12 @@ public abstract class PokemonAbstract implements PokemonInterface{
 	}
 	
 	@Override
-	public ArrayList<PokemonInterface> getEvolutions() {
+	public EvolutionChainInterface getEvolutions() {
 		return this.evolutions;
 	}
 	
 	@Override
-	public void setEvolutions(ArrayList<PokemonInterface> evolutions) {
+	public void setEvolutions(EvolutionChainInterface evolutions) {
 		this.evolutions = evolutions;
 	}
 

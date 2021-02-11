@@ -8,9 +8,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import interfaces.EvolutionChainInterface;
 import interfaces.PokemonInterface;
 
-@Document(collection = "pokemon")
 @JsonDeserialize(using = PokemonDeserializer.class)
 public class Pokemon implements PokemonInterface {
 
@@ -22,7 +22,7 @@ public class Pokemon implements PokemonInterface {
 	private int weight;
 	private ArrayList<String> types;
 	private ArrayList<String> abilities;
-	private ArrayList<PokemonInterface> evolutions;
+	private EvolutionChainInterface evolutions;
 	private HashMap<String, Integer> baseStatus;
 	
 	public Pokemon() {
@@ -81,10 +81,10 @@ public class Pokemon implements PokemonInterface {
 	public void setAbilities(ArrayList<String> abilities) {
 		this.abilities = abilities;
 	}
-	public ArrayList<PokemonInterface> getEvolutions() {
+	public EvolutionChainInterface getEvolutions() {
 		return evolutions;
 	}
-	public void setEvolutions(ArrayList<PokemonInterface> evolutions) {
+	public void setEvolutions(EvolutionChainInterface evolutions) {
 		this.evolutions = evolutions;
 	}
 	public HashMap<String, Integer> getBaseStatus() {

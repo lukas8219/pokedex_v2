@@ -3,13 +3,16 @@ package defaultObjects;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import defaultAbstract.PokemonAbstract;
+import interfaces.EvolutionChainInterface;
 import interfaces.PokemonInterface;
 
+@JsonDeserialize(using = DefaultPokemonDeserializer.class)
 public class PokemonDefault extends PokemonAbstract {
 	
 	public PokemonDefault() {
-		
 	}
 	
 	public PokemonDefault(String name,
@@ -17,7 +20,7 @@ public class PokemonDefault extends PokemonAbstract {
 			String iconURL,
 			ArrayList<String> types,
 			ArrayList<String> abilities,
-			ArrayList<PokemonInterface> evolutions,
+			EvolutionChainDefault evolutions,
 			HashMap<String, Integer> baseStatus,
 			int height,
 			int weight) {

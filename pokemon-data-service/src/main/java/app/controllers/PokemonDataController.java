@@ -22,19 +22,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import app.models.Pokemon;
 import app.models.repository.PokemonRepository;
+import defaultObjects.PokemonDefault;
 import interfaces.PokemonInterface;
 
 
 @RestController
 @RequestMapping("/")
-@EnableCaching
 public class PokemonDataController {
 	
 	@Autowired
 	private PokemonRepository pokemonRepository;
 	
 	@GetMapping("/{id}")
-	@Cacheable("id")
 	public PokemonInterface getPokemonData(@PathVariable("id") String id) throws JsonParseException, JsonMappingException, MalformedURLException, IOException {
 		
 		Optional<PokemonInterface> pokeQuery = pokemonRepository.findById(id);
@@ -50,7 +49,7 @@ public class PokemonDataController {
 	}
 	
 	@PutMapping("/{id}")
-	public void updatePokemon(@RequestBody PokemonInterface pokemonToUpdate) {
+	public void updatePokemon(@RequestBody PokemonDefault pokemonToUpdate) {
 		pokemonRepository.save(pokemonToUpdate);
 	}
 }

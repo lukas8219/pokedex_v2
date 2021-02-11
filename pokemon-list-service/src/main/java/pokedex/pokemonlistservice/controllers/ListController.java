@@ -64,7 +64,7 @@ public class ListController {
 			if(i==899) pokemonID = 1;
 			
 			PokemonDefault currentPokemon = rest.getForObject(new URI("http://pokemon-data-service/"+pokemonID), PokemonDefault.class);
-			ListItem item = new ListItem(currentPokemon.getName(), "/pokemon/"+currentPokemon.getId());
+			ListItem item = new ListItem(currentPokemon.getName(), "/"+currentPokemon.getId());
 			currentList.add(item);
 		}
 		
@@ -82,7 +82,7 @@ public class ListController {
 			}
 			
 			PokemonDefault currentPokemon = rest.getForObject(new URI("http://pokemon-data-service/"+i), PokemonDefault.class);
-			ListItem item = new ListItem(currentPokemon.getName(), "/pokemon/"+currentPokemon.getId());
+			ListItem item = new ListItem(currentPokemon.getName(), "/"+currentPokemon.getId());
 			currentList.add(item);
 		}
 		
