@@ -1,6 +1,13 @@
-# PokeDex
+# PokeDex - @lukas8219
  
-PokeDex WebApp designed with Microservices architecture.
+PokeDex WebApp - Feb, 2021.
+
+## Technologies
+
+### Language and Main frameWork : Java - SpringBoot, SpringCloud and Eureka Discovery.
+### Database: MongoDatabase Community
+### Architecture: Microservices
+### Libraries used - PokeLibrary(handmade).
 
 ## MicroServices
 
