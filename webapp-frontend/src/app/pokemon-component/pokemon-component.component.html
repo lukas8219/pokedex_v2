@@ -1,0 +1,71 @@
+<div class="janela">
+
+    <p class="textNome">{{ pokemon.name }} #{{ pokemon.id }} </p>
+
+
+    <div class="meio"> 
+
+        <div class="imgTest">
+            <img src={{pokemon.iconURL}} style="width: 100%; height: 100%">
+            <div style = "background-color: blueviolet; display: flex; justify-content: space-around;">
+                <button style="width: 100%;"  (click)="previous()"> {{lista[0].name}} #{{lista[0].url.replace("/","")}} </button>
+                <button [routerLink]="['/', lista[2].url.replace('/','')]" style = "width: 100%;" (click)="next()"> {{lista[2].name}} #{{lista[2].url.replace("/","")}} </button>
+            </div>
+        </div>
+
+        <div class="middleDiv"> 
+            <div class="status"> 
+                <div style="text-align: center; justify-self: center;"><b> Base Status </b></div>
+                <div style="display: flex; flex-direction: row; justify-content: space-around;">
+
+                <div style="display: flex; flex-direction: column;">
+                    <p style="text-align: center;">
+                        <b>HP: </b>{{ pokemon.baseStatus['HP'] }} </p>
+                    <p style="text-align: center;">
+                        <b>Attack: </b>{{pokemon.baseStatus['Attack']}} </p>
+                    <p style="text-align: center;">
+                        <b>Defense: </b> {{pokemon.baseStatus['Defense']}} </p>
+                </div>
+    
+                <div style="display: flex; flex-direction: column;">
+                    <p style="text-align: center;">
+                        <b>Sp. Attack: </b>{{ pokemon.baseStatus['SpecialAttack'] }} </p>
+                    <p style="text-align: center;">
+                        <b>Sp. Defense: </b>{{pokemon.baseStatus['SpecialDefense']}} </p>
+                    <p style="text-align: center;">
+                        <b>Speed: </b>{{pokemon.baseStatus['Speed']}} </p>
+                </div>
+                </div>
+            </div>
+
+            <div class="info">
+
+                <b style="font-size: 20px;"> GENERAL INFO </b>
+                <div style = "display: flex; justify-content: space-around;"> 
+                    <p><b>Height: </b> {{pokemon.height}}'' </p>
+                    <p><b>Weight: </b> {{pokemon.weight}}lbs</p>
+                </div>
+
+                <div style = "display: flex; flex-direction: row; justify-content: space-around; margin : 5px;" >
+                    <div>
+                        <b>Abilities </b>
+                        <p *ngFor="let ability of pokemon.abilities"> {{ability}} </p>
+                    </div>
+
+                    <div>
+                        <b>Types </b>
+                        <p *ngFor="let type of pokemon.types"> {{type}} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 200px; width: auto; overflow:auto;">
+        <div class="bottom">
+            <ng-container *ngFor="let evo of pokemonEvo" style="overflow: auto; height:auto"> 
+                <evolutionChain url ="{{evo}}"></evolutionChain>
+            </ng-container>
+        </div>
+    </div>
+</div>

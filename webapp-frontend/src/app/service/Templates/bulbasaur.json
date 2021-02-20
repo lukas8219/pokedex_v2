@@ -1,0 +1,1 @@
+{"name":"bulbasaur","id":"1","iconURL":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png","types":["grass","poison"],"height":7,"weight":69,"abilities":["overgrow","chlorophyll"],"evolutions":{"evolutions":["2","3"],"id":"1"},"baseStatus":{"Speed":45,"SpecialAttack":65,"HP":45,"SpecialDefense":65,"Attack":49,"Defense":49}}

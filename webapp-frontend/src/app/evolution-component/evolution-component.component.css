@@ -1,0 +1,11 @@
+.unselected {
+    border-radius: 80%;
+    background-color: #99dde7
+}
+
+.selected {
+    border-radius: 50%;
+    height: auto;
+    background-color: #2ec7c0;
+    width: auto;
+}
