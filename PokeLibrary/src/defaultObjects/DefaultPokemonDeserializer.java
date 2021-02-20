@@ -1,16 +1,15 @@
 package defaultObjects;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-
 import interfaces.PokemonDeserializerInterface;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DefaultPokemonDeserializer extends StdDeserializer<PokemonDefault> implements PokemonDeserializerInterface  {
 
@@ -49,7 +48,7 @@ public class DefaultPokemonDeserializer extends StdDeserializer<PokemonDefault> 
 	public HashMap<String, Integer> getBaseStatus(JsonNode statsNode) {
 
 		HashMap<String, Integer> currentStatus = new HashMap<>();
-		String[] statusNotation = {"Speed", "Special Attack","HP", "Special Defense","Attack", "Defense"};
+		String[] statusNotation = {"Speed", "SpecialAttack","HP", "SpecialDefense","Attack", "Defense"};
 		
 		for(int i=0; i<statsNode.size(); i++) {
 			currentStatus.put(statusNotation[i], (Integer) statsNode.get(statusNotation[i]).numberValue());

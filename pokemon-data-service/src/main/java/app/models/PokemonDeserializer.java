@@ -1,16 +1,15 @@
 package app.models;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-
 import interfaces.PokemonDeserializerInterface;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class PokemonDeserializer extends StdDeserializer<Pokemon> implements PokemonDeserializerInterface{
@@ -59,7 +58,7 @@ public class PokemonDeserializer extends StdDeserializer<Pokemon> implements Pok
 	@Override
 	public HashMap<String, Integer> getBaseStatus(JsonNode statsNode) {
 
-		String[] statusNotation = {"HP","Attack","Defense","Special Attack","Special Defense","Speed"};
+		String[] statusNotation = {"HP","Attack","Defense","SpecialAttack","SpecialDefense","Speed"};
 		HashMap<String, Integer> base_status = new HashMap<>();
 		
 		for(int i=0; i<statsNode.size(); i++) {

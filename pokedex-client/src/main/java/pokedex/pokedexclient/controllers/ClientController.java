@@ -1,18 +1,14 @@
 package pokedex.pokedexclient.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-
 import defaultObjects.EvolutionChainDefault;
 import defaultObjects.PokemonDefault;
 import defaultObjects.PokemonListDefault;
 import interfaces.PokemonInterface;
 import interfaces.PokemonListInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/")
@@ -20,7 +16,9 @@ public class ClientController {
 
 	@Autowired
 	public RestTemplate rest;
-	
+
+	@Cacheable(value = "{id}")
+	@CrossOrigin
 	@GetMapping("{id}")
 	public PokemonInterface returnPokemon(@PathVariable("id") String id) {
 		
@@ -32,7 +30,9 @@ public class ClientController {
 		}
 		return pokemon;
 	}
-	
+
+	@Cacheable(value = "{id}")
+	@CrossOrigin
 	@GetMapping("/list/{id}")
 	public PokemonListInterface returnList(@RequestParam(value = "size", required = false) Integer size, @PathVariable("id") String id) {
 		
