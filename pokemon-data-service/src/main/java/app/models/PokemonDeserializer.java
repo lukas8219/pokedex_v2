@@ -25,7 +25,6 @@ public class PokemonDeserializer extends StdDeserializer<Pokemon> implements Pok
 
 	@Override
 	public Pokemon deserialize(JsonParser json, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-		//TO-DO
 		
 		JsonNode root = json.getCodec().readTree(json);
 		

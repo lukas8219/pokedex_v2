@@ -2,6 +2,8 @@ package pokedex.evolutionchainservice.models;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.jackson.JsonComponent;
@@ -34,29 +36,38 @@ public class EvolutionChainDeserializer extends StdDeserializer<EvolutionChain> 
 
 		JsonNode root = parser.getCodec().readTree(parser);
 		String id = root.get("id").asText();
-		ArrayList<String> evolutions = getEvolutions(root);
+		ArrayList<String> evolutions = getEvolutions(root.get("chain"));
 		
 		
 		return new EvolutionChain(id, evolutions);
 	}
 
-	
-	private ArrayList<String> getEvolutions(JsonNode root){
-		
-		ArrayList<String> temporaryList = new ArrayList<>();
-		JsonNode chain = root.get("chain");
-		String currentSpecie = IDParser.parseSpecie(chain.get("species").get("url").asText());
-		temporaryList.add(currentSpecie);
-		JsonNode nextChain = chain.get("evolves_to");
-		
-		while(nextChain != null && nextChain.size() > 0) {
-			for(int i=0; i<nextChain.size(); i++) {
-				currentSpecie = IDParser.parseSpecie(nextChain.get(i).get("species").get("url").asText());
-				temporaryList.add(currentSpecie);
+	//Realize Depth First Search
+	private ArrayList<String> getEvolutions(JsonNode chainNode){
+
+		Stack<JsonNode> stack = new Stack<>();
+		ArrayList<String> output = new ArrayList<>();
+
+		stack.push(chainNode.get("evolves_to"));
+		output.add(getID(chainNode));
+
+		while(! stack.isEmpty()){
+
+			JsonNode currentNode = stack.pop();
+
+			for(JsonNode node : currentNode){
+				String id = getID(node);
+				if(! output.contains(id)){
+					output.add(id);
+					stack.push(node.get("evolves_to"));
+				}
 			}
-			nextChain = nextChain.get(0).get("evolves_to");
 		}
-		
-		return temporaryList;
+
+		return output;
+	}
+
+	private String getID(JsonNode node){
+		return IDParser.parseSpecie(node.get("species").get("url").asText());
 	}
 }
