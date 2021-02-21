@@ -11,9 +11,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+// Class that interacts with PokeAPI.
 public class PokemonDeserializer extends StdDeserializer<Pokemon> implements PokemonDeserializerInterface{
-	
+
+	private String[] STATUS_NAME = {"HP","Attack","Defense","SpecialAttack","SpecialDefense","Speed"};
 
 	public PokemonDeserializer() {
 		this(null);
@@ -30,8 +31,8 @@ public class PokemonDeserializer extends StdDeserializer<Pokemon> implements Pok
 		
 		String name = root.get("name").asText();
 		String id = root.get("id").asText();
-		int height = (Integer) root.get("height").numberValue();
-		int weight = (Integer) root.get("weight").numberValue();
+		int height = root.get("height").asInt();
+		int weight = root.get("weight").asInt();
 		ArrayList<String> abilities = getAbilities(root.get("abilities"));
 		ArrayList<String> types = getTypes(root.get("types"));
 		String iconURL = getIconURL(root.get("sprites"));
@@ -57,12 +58,12 @@ public class PokemonDeserializer extends StdDeserializer<Pokemon> implements Pok
 	@Override
 	public HashMap<String, Integer> getBaseStatus(JsonNode statsNode) {
 
-		String[] statusNotation = {"HP","Attack","Defense","SpecialAttack","SpecialDefense","Speed"};
 		HashMap<String, Integer> base_status = new HashMap<>();
 		
 		for(int i=0; i<statsNode.size(); i++) {
-			String statusName = statusNotation[i];
-			int statusValue = (Integer) statsNode.get(i).get("base_stat").numberValue();
+			String statusName = STATUS_NAME[i];
+			int statusValue = statsNode.get(i).get("base_stat").asInt();
+
 			base_status.put(statusName, statusValue);
 		}
 		
@@ -75,15 +76,15 @@ public class PokemonDeserializer extends StdDeserializer<Pokemon> implements Pok
 	}
 
 	@Override
-	public ArrayList<String> getTypes(JsonNode typeNode) {
+	public ArrayList<String> getTypes(JsonNode typesNode) {
 		
 		ArrayList<String> types = new ArrayList<>();
-		
-		for(int i=0; i<typeNode.size(); i++) {
-			String type = typeNode.get(i).get("type").get("name").asText();
+
+		for(JsonNode typeNode : typesNode){
+			String type = typeNode.get("type").get("name").asText();
 			types.add(type);
 		}
-		
+
 		return types;
 	}
 

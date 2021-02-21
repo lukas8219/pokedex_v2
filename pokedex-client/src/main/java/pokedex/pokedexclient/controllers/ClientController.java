@@ -15,18 +15,18 @@ import org.springframework.web.client.RestTemplate;
 public class ClientController {
 
 	@Autowired
-	public RestTemplate rest;
+	public RestTemplate restRequest;
 
-	@Cacheable(value = "{id}")
+	@Cacheable(value = "{inputId}")
 	@CrossOrigin
-	@GetMapping("{id}")
-	public PokemonInterface returnPokemon(@PathVariable("id") String id) {
+	@GetMapping("{inputId}")
+	public PokemonInterface returnPokemon(@PathVariable("inputId") String inputId) {
 		
-		PokemonDefault pokemon = rest.getForObject("http://pokemon-data-service/"+id, PokemonDefault.class);
+		PokemonDefault pokemon = restRequest.getForObject("http://pokemon-data-service/"+inputId, PokemonDefault.class);
 		
 		if(pokemon.getEvolutions() == null) {
-			pokemon.setEvolutions(rest.getForObject("http://evolution-chain-service/"+id, EvolutionChainDefault.class));
-			rest.put("http://pokemon-data-service/"+id, pokemon);
+			pokemon.setEvolutions(restRequest.getForObject("http://evolution-chain-service/"+inputId, EvolutionChainDefault.class));
+			restRequest.put("http://pokemon-data-service/", pokemon);
 		}
 		return pokemon;
 	}
@@ -34,14 +34,14 @@ public class ClientController {
 	@Cacheable(value = "{id}")
 	@CrossOrigin
 	@GetMapping("/list/{id}")
-	public PokemonListInterface returnList(@RequestParam(value = "size", required = false) Integer size, @PathVariable("id") String id) {
+	public PokemonListInterface returnList(@RequestParam(value = "size", required = false) Integer listSize, @PathVariable("id") String id) {
 		
 		PokemonListDefault returnList;
 		
-		if(size == null) {
-			returnList = rest.getForObject("http://pokemon-list-service/"+id, PokemonListDefault.class);
+		if(listSize == null) {
+			returnList = restRequest.getForObject("http://pokemon-list-service/"+id, PokemonListDefault.class);
 		} else {
-			returnList = rest.getForObject("http://pokemon-list-service/"+id+"?size="+size, PokemonListDefault.class);
+			returnList = restRequest.getForObject("http://pokemon-list-service/"+id+"?size="+listSize, PokemonListDefault.class);
 		}
 		
 		return returnList;

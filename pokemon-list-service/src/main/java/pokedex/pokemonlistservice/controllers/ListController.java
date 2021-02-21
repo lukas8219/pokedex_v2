@@ -22,19 +22,19 @@ public class ListController {
 	
 	
 	@Autowired
-	private RestTemplate rest;
+	private RestTemplate restConnection;
 	
 	@GetMapping("/{id}")
 	public PokemonListInterface getPokemonList(@PathVariable("id") int from, @RequestParam(value="size", required=false) Integer size) throws MalformedURLException, IOException, RestClientException, URISyntaxException {
 		
 		PokemonList pokedex = new PokemonList();
-		ArrayList<ListItemInterface> pokeList = new ArrayList<>();
+		ArrayList<ListItemInterface> pokeList;
 		
 		if(size == null) {
 			size = 3;
 			pokeList = getDefaultList(from);
 		} else {
-			pokeList = getListFrom(from, size);
+			pokeList = getMultipleList(from, size);
 		}
 		
 		pokedex.setPokemonList(pokeList);
@@ -42,7 +42,7 @@ public class ListController {
 
 		return pokedex;
 	}
-	
+
 	private ArrayList<ListItemInterface> getDefaultList(int id) throws RestClientException, URISyntaxException{
 		
 		ArrayList<ListItemInterface> currentList = new ArrayList<>();
@@ -57,30 +57,30 @@ public class ListController {
 			if(i==0) pokemonID = 898;
 			if(i==899) pokemonID = 1;
 			
-			PokemonDefault currentPokemon = rest.getForObject(new URI("http://pokemon-data-service/"+pokemonID), PokemonDefault.class);
-			ListItem item = new ListItem(currentPokemon.getName(), "/"+currentPokemon.getId());
+			PokemonDefault pokemon = restConnection.getForObject(new URI("http://pokemon-data-service/"+pokemonID), PokemonDefault.class);
+			ListItem item = new ListItem(pokemon.getName(), "/"+pokemon.getId());
 			currentList.add(item);
 		}
 		
 		return currentList;
 	}
 	
-	private ArrayList<ListItemInterface> getListFrom(int from, int size) throws RestClientException, URISyntaxException{
+	private ArrayList<ListItemInterface> getMultipleList(int from, int size) throws RestClientException, URISyntaxException{
 		
-		ArrayList<ListItemInterface> currentList = new ArrayList<>();
+		ArrayList<ListItemInterface> multipleList = new ArrayList<>();
 		
-		for(int i=from; currentList.size() != size; i++) {
+		for(int i=from; multipleList.size() != size; i++) {
 			
 			if(i==899) {
 				i = 1;
 			}
 			
-			PokemonDefault currentPokemon = rest.getForObject(new URI("http://pokemon-data-service/"+i), PokemonDefault.class);
-			ListItem item = new ListItem(currentPokemon.getName(), "/"+currentPokemon.getId());
-			currentList.add(item);
+			PokemonDefault pokemon = restConnection.getForObject(new URI("http://pokemon-data-service/"+i), PokemonDefault.class);
+			ListItem item = new ListItem(pokemon.getName(), "/"+pokemon.getId());
+			multipleList.add(item);
 		}
 		
-		return currentList;
+		return multipleList;
 	}
 	
 }

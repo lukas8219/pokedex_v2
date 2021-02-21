@@ -7,8 +7,6 @@ import java.net.URL;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,25 +29,25 @@ import interfaces.PokemonInterface;
 public class PokemonDataController {
 	
 	@Autowired
-	private PokemonRepository pokemonRepository;
+	private PokemonRepository pokemonCollection;
 	
-	@GetMapping("/{id}")
-	public PokemonInterface getPokemonData(@PathVariable("id") String id) throws JsonParseException, JsonMappingException, MalformedURLException, IOException {
+	@GetMapping("/{inputId}")
+	public PokemonInterface getPokemonData(@PathVariable("inputId") String inputId) throws JsonParseException, JsonMappingException, MalformedURLException, IOException {
 		
-		Optional<PokemonInterface> pokeQuery = pokemonRepository.findById(id);
+		Optional<PokemonInterface> pokemonQuery = pokemonCollection.findById(inputId);
 		
-		if(pokeQuery.isEmpty()) {
-			Pokemon currentPokemon = new ObjectMapper().readValue(new URL("https://pokeapi.co/api/v2/pokemon/"+id), Pokemon.class);
-			pokemonRepository.save(currentPokemon);
-			return currentPokemon;
+		if(pokemonQuery.isEmpty()) {
+			Pokemon pokemon = new ObjectMapper().readValue(new URL("https://pokeapi.co/api/v2/pokemon/"+inputId), Pokemon.class);
+			pokemonCollection.save(pokemon);
+			return pokemon;
 		} else {
-			return pokeQuery.get();
+			return pokemonQuery.get();
 		}
 		
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping
 	public void updatePokemon(@RequestBody PokemonDefault pokemonToUpdate) {
-		pokemonRepository.save(pokemonToUpdate);
+		pokemonCollection.save(pokemonToUpdate);
 	}
 }

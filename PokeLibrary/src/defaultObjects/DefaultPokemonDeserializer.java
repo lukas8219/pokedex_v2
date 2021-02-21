@@ -10,6 +10,7 @@ import interfaces.PokemonDeserializerInterface;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class DefaultPokemonDeserializer extends StdDeserializer<PokemonDefault> implements PokemonDeserializerInterface  {
 
@@ -19,15 +20,14 @@ public class DefaultPokemonDeserializer extends StdDeserializer<PokemonDefault> 
 	
 	protected DefaultPokemonDeserializer(Class<?> vc) {
 		super(vc);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public ArrayList<String> getTypes(JsonNode typesNode) {
 		ArrayList<String> types = new ArrayList<>();
-		
-		for(int i=0; i<typesNode.size(); i++) {
-			types.add(typesNode.get(i).asText());
+
+		for(JsonNode type : typesNode){
+			types.add(type.asText());
 		}
 		
 		return types;
@@ -37,8 +37,8 @@ public class DefaultPokemonDeserializer extends StdDeserializer<PokemonDefault> 
 	public ArrayList<String> getAbilities(JsonNode abilitiesNode) {
 		ArrayList<String> abilities = new ArrayList<>();
 		
-		for(int i=0; i<abilitiesNode.size(); i++) {
-			abilities.add(abilitiesNode.get(i).asText());
+		for(JsonNode ability : abilitiesNode){
+			abilities.add(ability.asText());
 		}
 		
 		return abilities;
@@ -48,12 +48,12 @@ public class DefaultPokemonDeserializer extends StdDeserializer<PokemonDefault> 
 	public HashMap<String, Integer> getBaseStatus(JsonNode statsNode) {
 
 		HashMap<String, Integer> currentStatus = new HashMap<>();
-		String[] statusNotation = {"Speed", "SpecialAttack","HP", "SpecialDefense","Attack", "Defense"};
-		
-		for(int i=0; i<statsNode.size(); i++) {
-			currentStatus.put(statusNotation[i], (Integer) statsNode.get(statusNotation[i]).numberValue());
+
+		for (Iterator<String> Iterator = statsNode.fieldNames(); Iterator.hasNext(); ) {
+			String status = Iterator.next();
+			currentStatus.put(status, statsNode.get(status).asInt());
 		}
-		
+
 		return currentStatus;
 	}
 
@@ -62,6 +62,8 @@ public class DefaultPokemonDeserializer extends StdDeserializer<PokemonDefault> 
 		return spriteNode.get("iconURL").asText();
 	}
 
+
+	//Only called in final product. Doesnt interact with default PokeApi JSON.
 	public EvolutionChainDefault getEvolutions(JsonNode rootNode) {
 		
 		String id;
@@ -98,8 +100,8 @@ public class DefaultPokemonDeserializer extends StdDeserializer<PokemonDefault> 
 		
 		String name = root.get("name").asText();
 		String id = root.get("id").asText();
-		int height = (Integer) root.get("height").numberValue();
-		int weight = (Integer) root.get("weight").numberValue();
+		int height = root.get("height").asInt();
+		int weight = root.get("weight").asInt();
 		EvolutionChainDefault evolutions = getEvolutions(root);
 		
 		return new PokemonDefault(name, id, iconURL, types, abilities, evolutions, base_status, height, weight);

@@ -34,37 +34,37 @@ public class EvolutionChainDeserializer extends StdDeserializer<EvolutionChain> 
 	public EvolutionChain deserialize(JsonParser parser, DeserializationContext ctxt)
 			throws IOException, JsonProcessingException {
 
-		JsonNode root = parser.getCodec().readTree(parser);
-		String id = root.get("id").asText();
-		ArrayList<String> evolutions = getEvolutions(root.get("chain"));
+		JsonNode rootNode = parser.getCodec().readTree(parser);
+		String id = rootNode.get("id").asText();
+		ArrayList<String> evolutions = getEvolutions(rootNode.get("chain"));
 		
 		
 		return new EvolutionChain(id, evolutions);
 	}
 
-	//Realize Depth First Search
+	//Depth First Search
 	private ArrayList<String> getEvolutions(JsonNode chainNode){
 
 		Stack<JsonNode> stack = new Stack<>();
-		ArrayList<String> output = new ArrayList<>();
+		ArrayList<String> evolutions = new ArrayList<>();
 
+		evolutions.add(getID(chainNode));
 		stack.push(chainNode.get("evolves_to"));
-		output.add(getID(chainNode));
 
 		while(! stack.isEmpty()){
 
-			JsonNode currentNode = stack.pop();
+			JsonNode evolutionNode = stack.pop();
 
-			for(JsonNode node : currentNode){
-				String id = getID(node);
-				if(! output.contains(id)){
-					output.add(id);
-					stack.push(node.get("evolves_to"));
+			for(JsonNode chain : evolutionNode){
+				String id = getID(chain);
+				if(! evolutions.contains(id)){
+					evolutions.add(id);
+					stack.push(chain.get("evolves_to"));
 				}
 			}
 		}
 
-		return output;
+		return evolutions;
 	}
 
 	private String getID(JsonNode node){
